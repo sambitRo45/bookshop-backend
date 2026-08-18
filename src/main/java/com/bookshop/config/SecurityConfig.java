@@ -4,6 +4,7 @@ import com.bookshop.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,21 +27,26 @@ public class SecurityConfig {
     ) throws Exception {
 
         http
-                // JWT authentication doesn't need CSRF protection
                 .csrf(csrf -> csrf.disable())
 
                 .cors(cors -> {})
 
-                // Don't create HTTP sessions
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS
                         )
                 )
 
-
-                // Configure API authorization
                 .authorizeHttpRequests(auth -> auth
+
+                        // =========================
+                        // CORS PREFLIGHT
+                        // =========================
+
+                        .requestMatchers(
+                                HttpMethod.OPTIONS,
+                                "/**"
+                        ).permitAll()
 
                         // =========================
                         // PUBLIC APIs
@@ -83,7 +89,6 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
 
-                // Add JWT filter before Spring's username/password filter
                 .addFilterBefore(
                         jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
@@ -92,9 +97,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /**
-     * AuthenticationManager is used during login.
-     */
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration configuration
@@ -103,9 +105,6 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-    /**
-     * BCrypt password encoder.
-     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
 
