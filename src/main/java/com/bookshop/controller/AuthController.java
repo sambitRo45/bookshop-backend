@@ -19,8 +19,8 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @GetMatting("/test")
-    public ResponseEntity<String> test() {
+    @GetMapping("/test")
+    public String test() {
         return "This is for testing Only";
     }
 
