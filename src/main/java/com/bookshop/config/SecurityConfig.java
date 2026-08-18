@@ -38,8 +38,6 @@ public class SecurityConfig {
                         )
                 )
 
-                .requestMatchers(HttpMethod.OPTIONS, "/**")
-                .permitAll()
 
                 // Configure API authorization
                 .authorizeHttpRequests(auth -> auth
