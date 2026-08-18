@@ -17,7 +17,7 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-                List.of("https://bookshop-backend-5gg0.onrender.com/api")
+                List.of("https://bookshop-pr.netlify.app")
         );
 
         configuration.setAllowedMethods(
