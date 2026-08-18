@@ -86,7 +86,7 @@ public class SecurityConfig {
                         // EVERYTHING ELSE
                         // =========================
 
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
 
                 .addFilterBefore(
