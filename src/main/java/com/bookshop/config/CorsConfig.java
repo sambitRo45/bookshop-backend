@@ -17,15 +17,25 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-                List.of("https://bookshop-pr.netlify.app")
+                List.of(
+                        "https://bookshop-pr.netlify.app",
+                        "http://localhost:5173"
+                )
         );
 
         configuration.setAllowedMethods(
-                List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                List.of(
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "DELETE",
+                        "PATCH",
+                        "OPTIONS"
+                )
         );
 
         configuration.setAllowedHeaders(
-                List.of("Authorization", "Content-Type", "Accept")
+                List.of("*")
         );
 
         configuration.setAllowCredentials(true);
@@ -33,7 +43,10 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration(
+                "/**",
+                configuration
+        );
 
         return source;
     }
