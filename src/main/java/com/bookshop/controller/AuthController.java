@@ -19,6 +19,11 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @GetMatting("/test")
+    public ResponseEntity<String> test() {
+        return "This is for testing Only";
+    }
+
     @PostMapping("/register")
     public ResponseEntity<MessageResponseDto> register(
             @Valid @RequestBody RegisterRequestDto request
